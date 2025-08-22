@@ -67,7 +67,8 @@ def apply_patches(entry: ConfigEntry):
     module_entity_registry.slugify = _patched_slugify
 
 def revert_patches(entry: ConfigEntry):
-    if not entry.runtime_data is dict:
+    if not hasattr(entry, "runtime_data") or not entry.runtime_data is dict:
+        LOGGER.debug("It seems that no monkey patches are currently active")
         return
 
     if entry.runtime_data[ATTR_PATCHES_APPLIED]:
