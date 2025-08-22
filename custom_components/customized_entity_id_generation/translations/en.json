@@ -1,0 +1,7 @@
+{
+  "config": {
+    "abort": {
+      "already_installed": "The 'Customized Entity ID Generation' integration has already been activated. Visit its settings to view the customization options."
+    }
+  }
+}
