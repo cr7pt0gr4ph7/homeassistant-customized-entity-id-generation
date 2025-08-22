@@ -1,7 +1,8 @@
 """Monkey-patches for the Home Assistant framework code."""
-from typing import TYPE_CHECKING
 
 from homeassistant.exceptions import InvalidStateError
+from homeassistant.config_entries import ConfigEntry
+
 import homeassistant.helpers.entity_registry as module_entity_registry
 import homeassistant.helpers.entity as module_entity
 
@@ -13,10 +14,6 @@ from .const import (
 )
 
 import slugify as unicode_slug
-
-if TYPE_CHECKING:
-    from homeassistant.config_entries import ConfigEntry
-
 
 def apply_patches(entry: ConfigEntry):
     # We want to tweak the functionality of

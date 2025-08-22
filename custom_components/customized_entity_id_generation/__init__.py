@@ -3,16 +3,12 @@
 from __future__ import annotations
 
 import asyncio
-from typing import TYPE_CHECKING
+
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import Event, HomeAssistant
 
 from .const import DOMAIN, LOGGER, PLATFORMS
 from .monkey_patches import apply_patches, revert_patches
-
-if TYPE_CHECKING:
-    from collections.abc import Callable
-
-    from homeassistant.config_entries import ConfigEntry
-    from homeassistant.core import Event, HomeAssistant
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
