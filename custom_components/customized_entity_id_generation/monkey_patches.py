@@ -28,7 +28,7 @@ def apply_patches(entry: ConfigEntry):
     #
     if (
         hasattr(entry, "runtime_data")
-        and entry.runtime_data is dict
+        and not entry.runtime_data is None
         and entry.runtime_data[ATTR_PATCHES_APPLIED]
     ):
         raise InvalidStateError("Custom Entity ID Generation patches have already been applied!")
@@ -67,7 +67,7 @@ def apply_patches(entry: ConfigEntry):
     module_entity_registry.slugify = _patched_slugify
 
 def revert_patches(entry: ConfigEntry):
-    if not hasattr(entry, "runtime_data") or not entry.runtime_data is dict:
+    if not hasattr(entry, "runtime_data") or entry.runtime_data is None:
         LOGGER.debug("It seems that no monkey patches are currently active")
         return
 
