@@ -11,6 +11,7 @@ from .const import (
     ATTR_ORIGINAL_FUNCTIONS,
     ATTR_ENTITY_SLUGIFY,
     ATTR_ENTITY_REGISTRY_SLUGIFY,
+    LOGGER,
 )
 
 import slugify as unicode_slug
@@ -57,7 +58,12 @@ def apply_patches(entry: ConfigEntry):
         return "unknown" if slug == "" else slug
 
     # Replace the original functions with the patched versions
+    LOGGER.debug("Applying monkey patches...")
+
+    LOGGER.debug("Replace %s => %s", module_entity.slugify, _patched_slugify)
     module_entity.slugify = _patched_slugify
+
+    LOGGER.debug("Replace %s => %s", module_entity_registry.slugify, _patched_slugify)
     module_entity_registry.slugify = _patched_slugify
 
 def revert_patches(entry: ConfigEntry):
@@ -65,8 +71,14 @@ def revert_patches(entry: ConfigEntry):
         return
 
     if entry.runtime_data[ATTR_PATCHES_APPLIED]:
-        module_entity.slugify = entry.runtime_data[ATTR_ORIGINAL_FUNCTIONS][ATTR_ENTITY_SLUGIFY]
-        module_entity_registry.slugify = entry.runtime_data[ATTR_ORIGINAL_FUNCTIONS][ATTR_ENTITY_REGISTRY_SLUGIFY]
+        original_functions = entry.runtime_data[ATTR_ORIGINAL_FUNCTIONS]
+        LOGGER.debug("Reverting monkey patches...")
+
+        LOGGER.debug("Restore %s => %s", module_entity.slugify, original_functions[ATTR_ENTITY_SLUGIFY])
+        module_entity.slugify = original_functions[ATTR_ENTITY_SLUGIFY]
+
+        LOGGER.debug("Restore %s => %s", module_entity_registry.slugify, original_functions[ATTR_ENTITY_REGISTRY_SLUGIFY])
+        module_entity_registry.slugify = original_functions[ATTR_ENTITY_REGISTRY_SLUGIFY]
 
     # Discard runtime data
     entry.runtime_data = None
