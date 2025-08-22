@@ -25,7 +25,11 @@ def apply_patches(entry: ConfigEntry):
     # imported those functions. Instead, we resort to replacing the internal
     # functions that are being called by the above two functions.
     #
-    if entry.runtime_data is dict and entry.runtime_data[ATTR_PATCHES_APPLIED]:
+    if (
+        hasattr(entry, "runtime_data")
+        and entry.runtime_data is dict
+        and entry.runtime_data[ATTR_PATCHES_APPLIED]
+    ):
         raise InvalidStateError("Custom Entity ID Generation patches have already been applied!")
 
     entry.runtime_data = {
