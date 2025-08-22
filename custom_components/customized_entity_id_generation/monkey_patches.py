@@ -80,6 +80,8 @@ def revert_patches(entry: ConfigEntry):
 
         LOGGER.debug("Restore %s => %s", module_entity_registry.slugify, original_functions[ATTR_ENTITY_REGISTRY_SLUGIFY])
         module_entity_registry.slugify = original_functions[ATTR_ENTITY_REGISTRY_SLUGIFY]
+    else:
+        LOGGER.debug("It seems that no monkey patches have been applied")
 
     # Discard runtime data
     entry.runtime_data = None
