@@ -1,0 +1,18 @@
+{
+    "domain": "customized_entity_id_generation",
+    "name": "Customized Entity ID Generation",
+    "codeowners": ["@cr7pt0gr4ph7"],
+    "config_flow": true,
+    "single_config_entry": true,
+    "dependencies": [
+      "homeassistant"
+    ],
+    "documentation": "https://github.com/cr7pt0gr4ph7/homeassistant-customized-entity-id-generation",
+    "issue_tracker": "https://github.com/cr7pt0gr4ph7/homeassistant-customized-entity-id-generation/issues",
+    "integration_type": "hub",
+    "iot_class": "local_push",
+    "requirements": [
+        "monkeypatching>=0.2.0"
+    ],
+    "version": "0.1.0"
+  }
